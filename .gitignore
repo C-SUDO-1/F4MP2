@@ -1,0 +1,12 @@
+build/
+build-slices/
+CMakeFiles/
+CMakeCache.txt
+Testing/
+*.log
+*.trace
+*.zip
+*.bak
+Data/F4SE/Plugins/*.dll
+Data/F4SE/Plugins/*.pdb
+*.docx

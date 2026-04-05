@@ -1,0 +1,4 @@
+#include <assert.h>
+#include <string.h>
+#include "remote_proxy_update_policy.h"
+int main(void){ RemoteProxyUpdatePolicy policy; ProxyPlayerRecord current; ProxyPlayerUpdateSpec update; rpup_init_default(); policy=rpup_get(); assert(policy.enabled); memset(&current,0,sizeof(current)); current.position.x=0.0f; current.position.y=0.0f; current.rotation.yaw=0.0f; memset(&update,0,sizeof(update)); update.position.x=10.0f; update.position.y=0.0f; update.rotation.yaw=90.0f; rpup_apply_player_update(&current,&update); assert(update.position.x==10.0f); policy.teleport_distance=20.0f; policy.position_lerp_alpha=0.5f; policy.rotation_lerp_alpha=0.5f; rpup_set(&policy); memset(&update,0,sizeof(update)); update.position.x=10.0f; update.position.y=4.0f; update.rotation.yaw=90.0f; rpup_apply_player_update(&current,&update); assert(update.position.x==5.0f); assert(update.position.y==2.0f); assert(update.rotation.yaw==45.0f); return 0; }

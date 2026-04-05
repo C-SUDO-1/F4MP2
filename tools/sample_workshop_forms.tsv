@@ -1,0 +1,4 @@
+category	editor_id	form_id_hex	movable	scrappable	snap_enabled	animated	scripted
+walls	WoodWall01	0x00112233	true	true	true	false	false
+floors	WoodFloor01	0x00112234	true	true	true	false	false
+barricades	SandbagWall01	0x00112235	true	true	false	false	false

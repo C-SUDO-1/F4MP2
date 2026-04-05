@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FO4 Coop Guest Profile v1",
+  "type": "object",
+  "required": [
+    "version",
+    "player_guid",
+    "display_name",
+    "level",
+    "xp",
+    "equipped_form_id",
+    "caps",
+    "special"
+  ],
+  "properties": {
+    "version": { "type": "integer", "const": 1 },
+    "player_guid": { "type": "string" },
+    "display_name": { "type": "string" },
+    "level": { "type": "integer", "minimum": 1 },
+    "xp": { "type": "integer", "minimum": 0 },
+    "equipped_form_id": { "type": "integer", "minimum": 0 },
+    "caps": { "type": "integer", "minimum": 0 },
+    "special": {
+      "type": "object",
+      "required": ["str", "per", "end", "cha", "int", "agi", "luk"],
+      "properties": {
+        "str": { "type": "integer", "minimum": 1, "maximum": 20 },
+        "per": { "type": "integer", "minimum": 1, "maximum": 20 },
+        "end": { "type": "integer", "minimum": 1, "maximum": 20 },
+        "cha": { "type": "integer", "minimum": 1, "maximum": 20 },
+        "int": { "type": "integer", "minimum": 1, "maximum": 20 },
+        "agi": { "type": "integer", "minimum": 1, "maximum": 20 },
+        "luk": { "type": "integer", "minimum": 1, "maximum": 20 }
+      }
+    }
+  }
+}

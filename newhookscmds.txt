@@ -1,0 +1,113 @@
+Built.
+
+Download:
+
+* [F4MPMS29_slice4b_manual_candidate_pivot_harness.zip](sandbox:/mnt/data/F4MPMS29_slice4b_manual_candidate_pivot_harness.zip)
+
+What this slice does:
+
+* stops hardcoding the live proof path to only `CreatePlayerControlHandlers`
+* lets you pivot the **manual candidate** at runtime without another source edit
+* keeps the current truthful tracing/gateway stack intact
+
+New runtime selector:
+
+* `F4MP_MANUAL_CANDIDATE`
+
+  * `controls` (default)
+  * `before_input`
+  * `after_input`
+  * `actor_filtered`
+
+New address inputs:
+
+* `F4MP_MANUAL_UPDATE_RVA`
+* `F4MP_MANUAL_INPUT_RVA`
+* `F4MP_MANUAL_ACTOR_RVA`
+
+What changed:
+
+* `plugin/src/f4se_plugin_exports.cpp`
+
+  * added runtime-selectable manual pivot builder
+  * added alternate manual prototypes:
+
+    * `player_character_update_before_input_manual_entry`
+    * `player_character_update_after_input_manual_entry`
+    * `actor_update_player_filtered_manual_entry`
+  * wiring now derives `require_update_address`, `require_input_address`, `site_prototype`, `callback_source_symbol`, and `callback_guard_symbol` from the selected pivot
+* added doc:
+
+  * `docs/iterations/slice4b-manual-candidate-pivot-harness.md`
+
+New trace:
+
+* `f4mp_manual_pivot_trace.txt`
+
+Default behavior:
+
+* unchanged if you set nothing
+* it still uses the current `controls` path with `CreatePlayerControlHandlers`
+
+How to use it
+
+Default controls path:
+
+```powershell
+Remove-Item Env:F4MP_MANUAL_CANDIDATE -ErrorAction SilentlyContinue
+Remove-Item Env:F4MP_MANUAL_UPDATE_RVA -ErrorAction SilentlyContinue
+Remove-Item Env:F4MP_MANUAL_INPUT_RVA -ErrorAction SilentlyContinue
+Remove-Item Env:F4MP_MANUAL_ACTOR_RVA -ErrorAction SilentlyContinue
+```
+
+Before-input pivot:
+
+```powershell
+$env:F4MP_MANUAL_CANDIDATE = "before_input"
+$env:F4MP_MANUAL_UPDATE_RVA = "0xYOUR_UPDATE_RVA"
+$env:F4MP_MANUAL_INPUT_RVA  = "0xYOUR_INPUT_RVA"
+```
+
+After-input pivot:
+
+```powershell
+$env:F4MP_MANUAL_CANDIDATE = "after_input"
+$env:F4MP_MANUAL_UPDATE_RVA = "0xYOUR_UPDATE_RVA"
+```
+
+Actor-filtered pivot:
+
+```powershell
+$env:F4MP_MANUAL_CANDIDATE = "actor_filtered"
+$env:F4MP_MANUAL_ACTOR_RVA = "0xYOUR_ACTOR_RVA"
+```
+
+Apply in PowerShell:
+
+```powershell
+$Repo = "<REPO_ROOT>"
+$Zip  = "<USER_HOME>\Downloads\F4MPMS29_slice4b_manual_candidate_pivot_harness.zip"
+
+$Stamp  = Get-Date -Format "yyyyMMdd_HHmmss"
+$Backup = "${Repo}._backup_$Stamp"
+$Stage  = Join-Path $env:TEMP "F4MPMS29_slice4b_manual_candidate_pivot_harness"
+
+Copy-Item $Repo $Backup -Recurse -Force
+Remove-Item $Stage -Recurse -Force -ErrorAction SilentlyContinue
+Expand-Archive -LiteralPath $Zip -DestinationPath $Stage -Force
+Copy-Item (Join-Path $Stage "*") $Repo -Recurse -Force
+```
+
+Then rebuild:
+
+```powershell
+Remove-Item .\build -Recurse -Force -ErrorAction SilentlyContinue
+cmake -S . -B .\build
+cmake --build .\build --config RelWithDebInfo --target f4mp_f4se_plugin --clean-first
+```
+
+The key file I want next is:
+
+* `f4mp_manual_pivot_trace.txt`
+
+That will tell us exactly which pivot/site/addresses the current run actually used.

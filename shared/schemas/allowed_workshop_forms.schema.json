@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Allowed Workshop Forms",
+  "type": "object",
+  "required": ["version", "categories"],
+  "properties": {
+    "version": { "type": "integer", "const": 1 },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "items"],
+        "properties": {
+          "name": { "type": "string" },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["editor_id", "form_id_hex", "movable", "scrappable", "snap_enabled", "animated", "scripted"],
+              "properties": {
+                "editor_id": { "type": "string" },
+                "form_id_hex": { "type": "string" },
+                "movable": { "type": "boolean" },
+                "scrappable": { "type": "boolean" },
+                "snap_enabled": { "type": "boolean" },
+                "animated": { "type": "boolean" },
+                "scripted": { "type": "boolean" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+1) Copy the config template into one of the supported locations:
+   Copy-Item .\f4mp_live.ini.example .\f4mp_live.ini
+
+2) Rebuild from repo root:
+   if (Test-Path .\build) { Remove-Item .\build -Recurse -Force }
+   New-Item -ItemType Directory -Path .\build | Out-Null
+   cmake -S . -B .\build -G "Visual Studio 17 2022" -A x64
+   cmake --build .\build --config RelWithDebInfo --target fo4_coop_service
+   cmake --build .\build --config RelWithDebInfo --target plugin_stub
+
+3) Start the service:
+   .\build\RelWithDebInfo\fo4_coop_service.exe 7777
+
+4) Validate the live transport handshake with the tiny harness (from a VS dev shell):
+   Set-Location "<REPO_ROOT>"
+   $hdr = (Get-ChildItem -Path . -Recurse -Filter plugin_transport_client.h | Select-Object -First 1).Directory.FullName
+   cl /nologo /MD /TC /I "$hdr" /I ".\shared\protocol" /I ".\service\src" .\plugin_transport_e2e.c /link /OUT:.\build\RelWithDebInfo\plugin_transport_e2e.exe /LIBPATH:.\build\RelWithDebInfo plugin_stub.lib service_core.lib shared_protocol.lib ws2_32.lib
+   .\build\RelWithDebInfo\plugin_transport_e2e.exe
+
+Expected success line:
+   SUCCESS session=1 player=1
+
+Notes:
+- Dev live transport stays off unless dev_live_transport = 1 in f4mp_live.ini.
+- Advanced users can override the config path with F4MP_LIVE_CONFIG.
+- Supported config locations:
+  .\f4mp_live.ini
+  .\F4SE\f4mp_live.ini
+  .\Data\F4SE\Plugins\f4mp_live.ini

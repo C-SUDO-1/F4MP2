@@ -1,0 +1,9 @@
+#pragma once
+
+#include <stdint.h>
+
+enum ProtocolErrorCode {
+    PERR_NONE=0, PERR_BAD_MAGIC=1, PERR_BAD_VERSION=2, PERR_BAD_LENGTH=3,
+    PERR_DECODE_FAIL=4, PERR_UNKNOWN_MSG=5, PERR_OVERFLOW=6, PERR_INVALID_STATE=7
+};
+

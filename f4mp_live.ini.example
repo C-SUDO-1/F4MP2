@@ -1,0 +1,25 @@
+; Copy to one of these locations and edit as needed:
+;   .\f4mp_live.ini
+;   .\F4SE\f4mp_live.ini
+;   .\Data\F4SE\Plugins\f4mp_live.ini
+; Or set F4MP_LIVE_CONFIG to an absolute path.
+
+[live_transport]
+dev_live_transport = 1
+host = 127.0.0.1
+port = 7777
+player_guid = dev-guid-local
+player_name = DevPlayer
+build_hash = 0x12345678
+
+[bridge]
+heartbeat_interval_ticks = 10
+auto_step_remote_backend = 1
+owns_remote_backend = 1
+remote_backend_step_count = 2
+apply_scene_backend_interp_config = 0
+
+[scene_interpolation]
+enabled = 1
+position_alpha = 0.35
+rotation_alpha = 0.50

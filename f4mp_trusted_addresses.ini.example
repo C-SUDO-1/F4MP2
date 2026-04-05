@@ -1,0 +1,11 @@
+# Trusted address slice example
+# Copy to Data/F4SE/Plugins/f4mp_trusted_addresses.ini or point
+# F4MP_TRUSTED_ADDRESS_FILE at your chosen path.
+# Exact-runtime gate is enforced in this slice.
+
+runtime_version=0x010B0BF0
+pivot=before_input
+# Use either *_addr (absolute) or *_rva (module RVA)
+update_rva=0x0
+input_rva=0x0
+actor_rva=0x0

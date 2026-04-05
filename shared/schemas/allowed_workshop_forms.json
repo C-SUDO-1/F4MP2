@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "notes": "Replace placeholder IDs with extracted Fallout 4 workshop forms before use",
+  "categories": [
+    {
+      "name": "walls",
+      "items": [
+        {"editor_id": "WoodWall01", "form_id_hex": "0xAAAAAAAA", "movable": true, "scrappable": true, "snap_enabled": true, "animated": false, "scripted": false},
+        {"editor_id": "WoodWallWindow01", "form_id_hex": "0xAAAAAAAB", "movable": true, "scrappable": true, "snap_enabled": true, "animated": false, "scripted": false}
+      ]
+    },
+    {
+      "name": "floors",
+      "items": [
+        {"editor_id": "WoodFloor01", "form_id_hex": "0xBBBBBBBB", "movable": true, "scrappable": true, "snap_enabled": true, "animated": false, "scripted": false}
+      ]
+    },
+    {
+      "name": "roofs",
+      "items": [
+        {"editor_id": "WoodRoofFlat01", "form_id_hex": "0xCCCCCCCC", "movable": true, "scrappable": true, "snap_enabled": true, "animated": false, "scripted": false}
+      ]
+    },
+    {
+      "name": "stairs",
+      "items": [
+        {"editor_id": "WoodStairs01", "form_id_hex": "0xDDDDDDDD", "movable": true, "scrappable": true, "snap_enabled": true, "animated": false, "scripted": false}
+      ]
+    },
+    {
+      "name": "fences",
+      "items": [
+        {"editor_id": "FenceWire01", "form_id_hex": "0xEEEEEEEE", "movable": true, "scrappable": true, "snap_enabled": true, "animated": false, "scripted": false}
+      ]
+    },
+    {
+      "name": "barricades",
+      "items": [
+        {"editor_id": "SandbagWall01", "form_id_hex": "0xFFFFFFFF", "movable": true, "scrappable": true, "snap_enabled": false, "animated": false, "scripted": false}
+      ]
+    }
+  ]
+}
